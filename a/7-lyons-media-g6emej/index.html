@@ -1,0 +1,307 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="favicon.ico">
+<title>7 Lyons Media Website Audit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F4F2ED;--card:#FFFFFF;--ink:#16181d;--ink-2:#4a4e57;--muted:#8e929c;
+    --amber:#FFB000;--amber-deep:#B87F00;--amber-wash:#FFF6DF;--green:#2FBF71;
+    --red:#C4362F;--red-wash:#FBEDEC;
+    --hairline:rgba(22,24,29,.12);--hairline-soft:rgba(22,24,29,.07);--radius:10px;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{-webkit-text-size-adjust:100%;}
+  body{background:var(--paper);color:var(--ink);font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .page{max-width:820px;margin:0 auto;padding:56px 24px 96px;}
+  a{color:var(--amber-deep);text-decoration:underline;text-underline-offset:2px;}
+  a:focus-visible{outline:2px solid var(--amber-deep);outline-offset:3px;border-radius:3px;}
+
+  .brand{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:34px;}
+  .brand .mark{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:18px;letter-spacing:.01em;}
+  .brand .mark span{color:var(--amber-deep);}
+  .eyebrow{font-family:'Inter Tight','Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(34px,5vw,46px);line-height:1.1;letter-spacing:-.01em;margin:10px 0 14px;text-wrap:balance;}
+  .standfirst{font-size:17px;color:var(--ink-2);max-width:62ch;}
+  .meta-strip{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:22px;padding-top:18px;border-top:1px solid var(--hairline);font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);}
+  .meta-strip b{color:var(--ink-2);font-weight:500;}
+
+  .scorecard{display:grid;grid-template-columns:160px 1fr;gap:34px;align-items:center;background:var(--card);border:1px solid var(--hairline);border-radius:var(--radius);padding:28px 30px;margin:34px 0 12px;}
+  @media(max-width:620px){.scorecard{grid-template-columns:1fr;gap:22px;}}
+  .ring{position:relative;width:160px;height:160px;}
+  .ring svg{transform:rotate(-90deg);}
+  .ring-val{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .ring-num{font-family:'Fraunces',Georgia,serif;font-size:50px;font-weight:600;line-height:1;}
+  .ring-den{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-top:6px;letter-spacing:.06em;}
+  .bars{display:flex;flex-direction:column;gap:13px;}
+  .bar-row{display:grid;grid-template-columns:1fr 40px;gap:12px;align-items:center;}
+  .bar-label{font-size:13px;font-weight:500;color:var(--ink-2);}
+  .bar-track{height:6px;background:var(--hairline-soft);border-radius:999px;overflow:hidden;margin-top:5px;}
+  .bar-fill{height:100%;border-radius:999px;background:var(--amber);}
+  .bar-num{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;text-align:right;font-variant-numeric:tabular-nums;}
+  .score-note{font-size:14.5px;color:var(--ink-2);background:var(--card);border:1px solid var(--hairline);border-left:3px solid var(--amber);border-radius:var(--radius);padding:16px 20px;margin-bottom:40px;}
+
+  section{margin-top:52px;}
+  h2{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:27px;line-height:1.2;letter-spacing:-.01em;margin-bottom:8px;text-wrap:balance;display:flex;gap:14px;align-items:baseline;}
+  h2 .num{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;color:var(--amber-deep);flex:none;padding-top:2px;}
+  h3{font-family:'Inter Tight','Inter',sans-serif;font-size:15px;font-weight:600;margin:26px 0 8px;}
+  p{margin:12px 0;max-width:66ch;}
+  ul,ol{margin:12px 0 12px 22px;max-width:64ch;}
+  li{margin:7px 0;}
+  strong{font-weight:600;}
+  .lede{font-size:17px;color:var(--ink-2);}
+
+  .finding{background:var(--card);border:1px solid var(--hairline);border-radius:var(--radius);padding:22px 24px;margin:20px 0;}
+  .finding.first{border-left:3px solid var(--red);background:var(--red-wash);}
+  .finding.warn{border-left:3px solid var(--amber);}
+  .finding.calm{border-left:3px solid var(--green);}
+  .finding-head{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:6px;}
+  .chip{font-family:'Inter Tight','Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:4px;}
+  .chip.first{background:var(--red);color:#fff;}
+  .chip.warn{background:var(--amber);color:#3d2a00;}
+  .chip.ok{background:var(--green);color:#04220f;}
+  .finding-title{font-family:'Inter Tight','Inter',sans-serif;font-weight:600;font-size:16px;}
+  .finding p{margin:8px 0;max-width:64ch;}
+
+  code{font-family:'JetBrains Mono',monospace;font-size:12.5px;background:rgba(22,24,29,.055);padding:1.5px 5px;border-radius:4px;word-break:break-word;}
+  .quote{font-family:'Fraunces',Georgia,serif;font-size:18px;color:var(--ink-2);border-left:2px solid var(--hairline);padding:4px 0 4px 18px;margin:14px 0;max-width:60ch;}
+
+  .table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--hairline);border-radius:var(--radius);background:var(--card);}
+  table{border-collapse:collapse;width:100%;font-size:13.5px;}
+  th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--hairline-soft);vertical-align:top;}
+  th{font-family:'Inter Tight','Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:rgba(22,24,29,.025);white-space:nowrap;}
+  tr:last-child td{border-bottom:none;}
+  td.num{font-family:'JetBrains Mono',monospace;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap;}
+  .yes{color:var(--green);font-weight:600;}
+  .no{color:var(--amber-deep);font-weight:600;}
+
+  .calc{background:var(--card);border:1px solid var(--hairline);border-radius:var(--radius);padding:24px 26px;margin:22px 0;}
+  .calc-inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:18px;margin-bottom:20px;}
+  .calc label{display:block;font-family:'Inter Tight','Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+  .calc input{width:100%;font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--ink);background:var(--paper);border:1px solid var(--hairline);border-radius:6px;padding:9px 11px;}
+  .calc input:focus-visible{outline:2px solid var(--amber-deep);outline-offset:1px;}
+  .calc-out{display:flex;flex-wrap:wrap;gap:30px;padding-top:18px;border-top:1px solid var(--hairline);}
+  .out-num{font-family:'Fraunces',Georgia,serif;font-size:32px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums;}
+  .out-lab{font-size:12px;color:var(--muted);margin-top:6px;}
+
+  .fix-order{counter-reset:fix;list-style:none;margin-left:0;}
+  .fix-order li{counter-increment:fix;position:relative;padding-left:38px;margin:16px 0;max-width:64ch;}
+  .fix-order li::before{content:counter(fix);position:absolute;left:0;top:1px;width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--paper);font-family:'JetBrains Mono',monospace;font-size:12px;display:flex;align-items:center;justify-content:center;}
+  .when{font-family:'Inter Tight','Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--amber-deep);}
+
+  .signoff{background:var(--amber-wash);border:1px solid rgba(184,127,0,.25);border-radius:var(--radius);padding:24px 26px;margin-top:40px;}
+  .signoff p{max-width:60ch;}
+  .how{font-size:13.5px;color:var(--ink-2);}
+  .how li{margin:5px 0;}
+  footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--hairline);font-size:12.5px;color:var(--muted);}
+  @media (prefers-reduced-motion:no-preference){.bar-fill{transition:width .5s ease;}}
+</style>
+</head>
+<body>
+
+
+<div class="page">
+
+  <div class="brand">
+    <div class="mark">Station<span>.</span></div>
+    <div class="eyebrow">Website audit · prepared 8 September 2026</div>
+  </div>
+
+  <h1>7 Lyons Media</h1>
+  <p class="standfirst">Sofia — we ran this ahead of our conversation tomorrow so we'd be talking about specifics rather than impressions. It looks at <code>7lyonsmedia.com</code> the way a stranger, a search engine and a prospective client would — what they can find, whether they can trust it, and whether they can act on it.</p>
+  <p class="standfirst">Nothing here needed access to your site. Everything was checked from the outside, exactly the way anyone else sees it.</p>
+
+  <div class="meta-strip">
+    <span><b>Site</b> 7lyonsmedia.com</span>
+    <span><b>Pages reviewed</b> 12</span>
+    <span><b>Platform</b> WordPress</span>
+    <span><b>Checked from</b> desktop and phone</span>
+  </div>
+
+  <div class="scorecard">
+    <div class="ring">
+      <svg width="160" height="160" viewBox="0 0 160 160" aria-hidden="true">
+        <circle cx="80" cy="80" r="68" fill="none" stroke="rgba(22,24,29,.09)" stroke-width="12"></circle>
+        <circle cx="80" cy="80" r="68" fill="none" stroke="#FFB000" stroke-width="12" stroke-linecap="round" stroke-dasharray="34 393"></circle>
+      </svg>
+      <div class="ring-val"><div class="ring-num">8</div><div class="ring-den">OUT OF 100</div></div>
+    </div>
+    <div class="bars">
+      <div class="bar-row"><div><div class="bar-label">Security &amp; integrity</div><div class="bar-track"><div class="bar-fill" style="width:4%"></div></div></div><div class="bar-num">4</div></div>
+      <div class="bar-row"><div><div class="bar-label">Being found</div><div class="bar-track"><div class="bar-fill" style="width:22%"></div></div></div><div class="bar-num">22</div></div>
+      <div class="bar-row"><div><div class="bar-label">Search basics</div><div class="bar-track"><div class="bar-fill" style="width:5%"></div></div></div><div class="bar-num">5</div></div>
+      <div class="bar-row"><div><div class="bar-label">Turning visitors into calls</div><div class="bar-track"><div class="bar-fill" style="width:4%"></div></div></div><div class="bar-num">4</div></div>
+      <div class="bar-row"><div><div class="bar-label">Speed &amp; accessibility</div><div class="bar-track"><div class="bar-fill" style="width:8%"></div></div></div><div class="bar-num">8</div></div>
+    </div>
+  </div>
+
+  <div class="score-note">
+    <strong>This is a website score, not a business score.</strong> The work speaks for itself — four Emmys, a Netflix documentary, a short film with 48 million views. The number above measures one thing only: how well the website carries that record to someone who doesn't know it yet. Right now it barely does, and that's genuinely good news for a redesign — every point of that gap is fixable, and most of it is straightforward.
+  </div>
+
+  <section>
+    <h2><span class="num">01</span>One thing to fix before anything else</h2>
+    <p class="lede">We want to be straight with you about this, because it matters — and equally straight that it's common, fixable in an afternoon, and not something you could have caught.</p>
+
+    <div class="finding first">
+      <div class="finding-head"><span class="chip first">Fix first</span><span class="finding-title">Someone has planted hidden spam links on four of your pages</span></div>
+      <p>At some point the site was compromised, and a handful of pages now carry hidden links to other people's websites — the kind that advertise pharmaceuticals, gambling and adult content. They're written into the code in ways designed to be read by search engines and missed by people, and on one page a couple of them are actually visible if you read far enough down.</p>
+      <p><strong>Why you'd never have seen it.</strong> The four affected pages are ones nothing on your site links to — the privacy policy, a leftover "sample page" WordPress creates by itself, and two early pages from when the site was built. There is no button or menu that leads to them; the only way to arrive is to type the address. That's exactly why they were chosen. The pages you and your clients actually use — the homepage, About, Our Work, Consulting, Contact — are untouched.</p>
+      <p><strong>What it is and isn't.</strong> This is aimed at search engines, not at your visitors. We saw no sign of anything targeting the people who come to your site or their information. What it does affect is how Google and any client who runs a routine check on your web address perceive the domain — which, for a company that pitches networks and brands, is the part worth moving quickly on.</p>
+      <p><strong>What we'll do.</strong> Remove every trace, change the passwords, and close the door it came through (the site currently gives away its login username to anyone who asks, which makes it easier to break into than it should be). Then keep an eye on it so it stays clean. We'll walk you through exactly where it all is tomorrow — it's easier to see than to describe.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">02</span>Leads are slipping through</h2>
+    <p>We clicked every button on the site through to where it ends up, rather than assuming it works. Most of what we found here is quick to fix — and one of them we'd fix tonight if it were ours.</p>
+
+    <div class="finding warn">
+      <div class="finding-head"><span class="chip warn">Fix tonight</span><span class="finding-title">"Book a Consultation" leads to a locked form</span></div>
+      <p>The main button on the Consulting page points to a form that's been switched to private. Anyone who clicks it is sent off your site to this message:</p>
+      <div class="quote">"Sorry, you can't access this typeform until its creator says so."</div>
+      <p>That's the button that sells your consulting, and it hasn't been reaching anyone. The fix is one setting in Typeform — about two minutes — and it's the single most valuable change in this whole document.</p>
+    </div>
+
+    <div class="finding warn">
+      <div class="finding-head"><span class="chip warn">Worth fixing</span><span class="finding-title">The contact form asks for a name and an email, and nothing else</span></div>
+      <p>No message box, no phone number, no way to say what the project is. Every enquiry arrives as a mystery, so each one costs a round of emails before you can tell whether it's a network series or a wedding video.</p>
+    </div>
+
+    <div class="finding warn">
+      <div class="finding-head"><span class="chip warn">Worth fixing</span><span class="finding-title">No phone number, and the email address is a personal Gmail</span></div>
+      <p>There's no phone number anywhere on the site, and the published address is a personal Gmail account. Neither is a dealbreaker with people who already know you — but for a producer at a brand or a network doing their due diligence, an <code>@7lyonsmedia.com</code> address and a number to call quietly remove a hesitation you'd never hear about.</p>
+    </div>
+
+    <div class="finding warn">
+      <div class="finding-head"><span class="chip warn">Blind spot</span><span class="finding-title">The site has no analytics at all</span></div>
+      <p>No Google Analytics, no visitor tracking of any kind. That's why none of the above ever surfaced — there's currently no way to know how many people arrived, clicked that consultation button, and left. The new site will fix this on day one, and it's the part that makes everything else measurable.</p>
+    </div>
+
+    <div class="finding calm">
+      <div class="finding-head"><span class="chip ok">Working</span><span class="finding-title">"Get Started" and your Calendly link both work</span></div>
+      <p>The full-service interest form loads correctly, and the free 15-minute call link goes where it should. We'll double-check the calendar's availability with you tomorrow rather than guess at it.</p>
+    </div>
+
+    <h3>What the locked button might be costing</h3>
+    <p>We don't know your numbers, so these are placeholders — put your own in and the figures update. It's an estimate, not a prediction.</p>
+    <div class="calc">
+      <div class="calc-inputs">
+        <div><label for="inq">Enquiries per month</label><input id="inq" type="number" value="6" min="0" step="1"></div>
+        <div><label for="tick">Typical project value ($)</label><input id="tick" type="number" value="1500" min="0" step="100"></div>
+        <div><label for="close">Close rate (%)</label><input id="close" type="number" value="30" min="0" max="100" step="1"></div>
+      </div>
+      <div class="calc-out">
+        <div><div class="out-num" id="mo">$2,700</div><div class="out-lab">per month in play</div></div>
+        <div><div class="out-num" id="yr">$32,400</div><div class="out-lab">per year in play</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">03</span>Being found</h2>
+
+    <div class="finding warn">
+      <div class="finding-head"><span class="chip warn">Free to fix</span><span class="finding-title">There's no Google Business Profile</span></div>
+      <p>Google's local listings have no record of 7 Lyons Media — no map pin, no reviews, no "call" button. Searching the company name in Google Maps brings up other people, including a <em>Lyons Media Production</em> in Michigan with 67 reviews. Meanwhile, within 30 km of downtown LA:</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Production company</th><th class="num">Rating</th><th class="num">Reviews</th></tr></thead>
+        <tbody>
+          <tr><td>LocalEyes Video Production</td><td class="num">5.0</td><td class="num">75</td></tr>
+          <tr><td>Tone Films</td><td class="num">5.0</td><td class="num">65</td></tr>
+          <tr><td>Los Angeles Videographers</td><td class="num">5.0</td><td class="num">59</td></tr>
+          <tr><td>ZANE Productions</td><td class="num">4.9</td><td class="num">48</td></tr>
+          <tr><td>Suite Spot</td><td class="num">5.0</td><td class="num">40</td></tr>
+          <tr><td><strong>7 Lyons Media</strong></td><td class="num">—</td><td class="num no">not listed</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Twenty companies in that radius hold 543 reviews between them, and not one of them has your credits. A profile is free and takes about twenty minutes; the reviews follow from the clients you already have.</p>
+
+    <h3>The site doesn't link to any of your social accounts</h3>
+    <p>Your LinkedIn, Facebook and X accounts all exist and are active, but the website doesn't point to any of them — the only outbound links on the whole site are two Vimeo embeds. For a company that consults on social media, the website should be the most connected thing you own. Easy to fix in the new build.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">04</span>The site itself</h2>
+
+    <h3>Your reel is the best thing on the site, and it's the thing that loads slowest</h3>
+    <p>The homepage carries about <strong>198 MB of video</strong> — three files, two of them set to autoplay, one of them a 98 MB QuickTime file. On our test the page took <strong>46 seconds</strong> to finish loading. On a phone on mobile data, a lot of people will leave before the reel has started. The fix is squarely in your team's wheelhouse: the same footage, re-encoded for the web, comes in around 5 MB and plays instantly.</p>
+
+    <h3>A little housekeeping</h3>
+    <p>A few pages that were never meant to be public are live and being sent to Google: the default WordPress "Sample Page", two early test versions of the homepage (one still shows placeholder text and the old company name), and a second, older Consulting page that competes with the real one. None of it is visible from the menu; all of it should go.</p>
+
+    <h3>The basics a search engine reads</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Check</th><th>Today</th></tr></thead>
+        <tbody>
+          <tr><td>Page descriptions for Google</td><td><span class="no">Missing on every page</span> — Google writes its own, usually badly</td></tr>
+          <tr><td>Link previews when shared</td><td><span class="no">None</span> — sharing the site in a text or on LinkedIn shows a bare web address, no image</td></tr>
+          <tr><td>Headings</td><td><span class="no">Needs work</span> — the homepage has no main heading, and the Consulting page has twelve</td></tr>
+          <tr><td>Image descriptions</td><td><span class="no">17 of 18 missing</span> — matters for accessibility and image search</td></tr>
+          <tr><td>Pinch-to-zoom on phones</td><td><span class="no">Disabled</span> — an accessibility standard the new site should meet</td></tr>
+          <tr><td>Mobile layout</td><td><span class="yes">Holds up</span> — nothing spills off the screen</td></tr>
+          <tr><td>Sitemap &amp; robots file</td><td><span class="yes">Present and valid</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">05</span>What we'd do, in order</h2>
+    <p>Cheapest and most important first. The first four are quick and free; the last one is the conversation we're excited to have.</p>
+    <ol class="fix-order">
+      <li><strong>Clean and secure the site.</strong> <span class="when">This week</span><br>Remove every injected link, change the passwords, close the login gap, and set up monitoring so it stays clean.</li>
+      <li><strong>Re-open the consultation form.</strong> <span class="when">Tonight</span><br>One setting in Typeform. Leads start arriving again immediately.</li>
+      <li><strong>Remove the leftover pages.</strong> <span class="when">This week</span><br>Sample page, the two test homepages, and the older Consulting page — with a redirect so nothing breaks.</li>
+      <li><strong>Claim the Google Business Profile.</strong> <span class="when">Twenty minutes</span><br>Then ask three recent clients for a review. That alone puts you on the map — literally.</li>
+      <li><strong>Re-encode the reel.</strong> <span class="when">An afternoon</span><br>Same footage, web-ready, loads before anyone has time to leave.</li>
+      <li><strong>The new site.</strong> <span class="when">Tomorrow's conversation</span><br>Built with analytics in from the start, a contact form that captures the project, a phone number and business email, links to all your channels, and previews that look right when someone shares it. This is the part we'd most like your thinking on — what it should feel like, what it should say, what it should never do. That's what the other email is for.</li>
+    </ol>
+  </section>
+
+  <div class="signoff">
+    <p><strong>See you tomorrow, Sofia.</strong> We'll go through the security issue first so it's off your mind, then the rest. Bring anything you've been frustrated by on the current site — chances are we've already found it, and if we haven't, we want to hear it.</p>
+  </div>
+
+  <section>
+    <h2><span class="num">06</span>How we checked</h2>
+    <ul class="how">
+      <li>Read every page in the site's sitemap (12 pages) from the outside, on desktop and on a simulated phone.</li>
+      <li>Clicked every button and link through to its final destination, including the two forms and the calendar.</li>
+      <li>Measured load time and file sizes in a real browser.</li>
+      <li>Checked Google's local business index for the company, and for competitors within 30 km.</li>
+      <li>Checked for analytics and tracking at the network level.</li>
+      <li>Verified the hidden links by reading the page code and by confirming how the browser actually renders them.</li>
+    </ul>
+    <p class="how">Two things we didn't establish and won't claim: whether the Calendly calendar currently has open slots (we'll check with you), and whether Google has already reacted to the spam links (that needs your Search Console, which we'll set up together).</p>
+  </section>
+
+  <footer>
+    Prepared by Station for Sofia Lyons and the 7 Lyons Media team, 8 September 2026, from a review of 7lyonsmedia.com as it stood that day. Scores are computed from what we counted, not from opinion. Dollar figures are estimates from the inputs shown, not forecasts.
+  </footer>
+</div>
+
+<script>
+  (function(){
+    var inq=document.getElementById('inq'),tick=document.getElementById('tick'),
+        close=document.getElementById('close'),mo=document.getElementById('mo'),yr=document.getElementById('yr');
+    function fmt(n){return '$'+Math.round(n).toLocaleString('en-US');}
+    function calc(){
+      var v=(parseFloat(inq.value)||0)*(parseFloat(tick.value)||0)*((parseFloat(close.value)||0)/100);
+      mo.textContent=fmt(v); yr.textContent=fmt(v*12);
+    }
+    [inq,tick,close].forEach(function(el){el.addEventListener('input',calc);});
+    calc();
+  })();
+</script>
+
+</body></html>
