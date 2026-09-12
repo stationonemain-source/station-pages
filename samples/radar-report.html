@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light">
+<title>Free Business Audit · Station</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F4F2ED;
+    --card:#FFFFFF;
+    --ink:#16181d;
+    --ink-2:#4a4e57;
+    --muted:#8e929c;
+    --amber:#FFB000;
+    --green:#2FBF71;
+    --hairline:rgba(22,24,29,.12);
+    --hairline-soft:rgba(22,24,29,.07);
+    --radius:10px;
+  }
+
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+  html{-webkit-text-size-adjust:100%;}
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  .page{
+    max-width:740px;
+    margin:0 auto;
+    padding:0 20px 56px;
+  }
+
+  /* ---------- utility type ---------- */
+
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    font-weight:500;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+
+  .eyebrow--amber{color:#B87F00;}
+
+  .sec-num{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    font-weight:500;
+    letter-spacing:.14em;
+    color:var(--muted);
+  }
+
+  .sec-head{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin:0 0 18px;
+  }
+
+  .sec-head .rule{
+    flex:1;
+    height:1px;
+    background:var(--hairline-soft);
+    align-self:center;
+  }
+
+  .sec-title{
+    font-family:'Fraunces',Georgia,serif;
+    font-weight:500;
+    font-size:20px;
+    letter-spacing:-.01em;
+    color:var(--ink);
+  }
+
+  /* ---------- header bar ---------- */
+
+  header.topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    padding:22px 0 20px;
+    border-bottom:1px solid var(--hairline);
+    margin-bottom:44px;
+  }
+
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    color:var(--ink);
+  }
+
+  .brand svg{display:block;flex:none;}
+
+  .brand .wordmark{
+    font-family:'Inter',sans-serif;
+    font-weight:800;
+    font-size:15px;
+    letter-spacing:-.02em;
+  }
+
+  .topbar-meta{
+    text-align:right;
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+  }
+
+  .topbar-meta .date{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    color:var(--ink-2);
+    font-variant-numeric:tabular-nums;
+  }
+
+  /* ---------- title block ---------- */
+
+  .title-block{margin-bottom:52px;}
+
+  .title-block .eyebrow{display:block;margin-bottom:14px;}
+
+  h1.biz-name{
+    font-family:'Fraunces',Georgia,serif;
+    font-weight:600;
+    font-size:clamp(34px,8vw,52px);
+    line-height:1.06;
+    letter-spacing:-.015em;
+    color:var(--ink);
+    margin-bottom:16px;
+    overflow-wrap:break-word;
+    text-wrap:balance;
+  }
+
+  .title-sub{
+    font-size:17px;
+    line-height:1.55;
+    color:var(--ink-2);
+    max-width:52ch;
+  }
+
+  .title-block::after{
+    content:"";
+    display:block;
+    width:56px;
+    height:2px;
+    background:var(--amber);
+    margin-top:26px;
+  }
+
+  /* ---------- jump nav ---------- */
+
+  .toc{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin:-16px 0 48px;
+  }
+
+  .toc a{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    font-weight:500;
+    letter-spacing:.04em;
+    color:var(--ink-2);
+    text-decoration:none;
+    padding:7px 13px;
+    border:1px solid var(--hairline);
+    border-radius:20px;
+    background:var(--card);
+    white-space:nowrap;
+    transition:border-color .15s ease,color .15s ease;
+  }
+
+  .toc a:hover{border-color:var(--amber);color:var(--ink);}
+
+  /* ---------- cards ---------- */
+
+  .card{
+    background:var(--card);
+    border:1px solid var(--hairline-soft);
+    border-radius:var(--radius);
+    padding:28px;
+  }
+
+  @media (min-width:560px){
+    .card{padding:34px 38px;}
+  }
+
+  section{margin-bottom:44px;}
+
+  /* ---------- headline finding ---------- */
+
+  .headline-card .eyebrow{display:block;margin-bottom:14px;}
+
+  .headline-text{
+    font-family:'Fraunces',Georgia,serif;
+    font-weight:500;
+    font-size:clamp(20px,4.4vw,25px);
+    line-height:1.4;
+    letter-spacing:-.005em;
+    color:var(--ink);
+    text-wrap:balance;
+  }
+
+  /* ---------- big number ---------- */
+
+  .big-num{
+    font-family:'Inter Tight','Inter',sans-serif;
+    font-weight:700;
+    font-variant-numeric:tabular-nums;
+    font-size:clamp(64px,17vw,104px);
+    line-height:1;
+    letter-spacing:-.03em;
+    color:var(--ink);
+    margin-bottom:6px;
+  }
+
+  .big-num-label{
+    font-size:15px;
+    font-weight:600;
+    color:var(--ink-2);
+    margin-bottom:18px;
+    max-width:40ch;
+  }
+
+  .num-divider{
+    height:1px;
+    background:var(--hairline-soft);
+    margin:0 0 18px;
+  }
+
+  .num-reasoning{
+    font-size:15px;
+    line-height:1.65;
+    color:var(--ink-2);
+    max-width:58ch;
+  }
+
+  .recovery-note{
+    margin-top:16px;
+    font-size:14px;
+    font-weight:600;
+    line-height:1.6;
+    color:var(--green);
+    max-width:52ch;
+  }
+
+  /* ---------- your-math calculator ---------- */
+
+  .math-card .eyebrow{display:block;margin-bottom:6px;}
+
+  .math-card .math-lede{
+    font-size:15px;
+    line-height:1.6;
+    color:var(--ink-2);
+    margin-bottom:22px;
+  }
+
+  .math-card .math-lede strong{color:var(--ink);font-weight:700;}
+
+  .calc-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+    margin-bottom:8px;
+  }
+
+  @media (max-width:480px){
+    .calc-grid{grid-template-columns:1fr;}
+  }
+
+  .calc-field{display:flex;flex-direction:column;gap:8px;}
+
+  .calc-field-label{
+    font-size:13px;
+    font-weight:600;
+    color:var(--ink-2);
+  }
+
+  .calc-input-wrap{
+    display:flex;
+    align-items:center;
+    gap:2px;
+    border:1.5px solid var(--hairline);
+    border-radius:8px;
+    background:var(--paper);
+    padding:0 14px;
+    transition:border-color .15s ease;
+  }
+
+  .calc-input-wrap:focus-within{border-color:var(--amber);}
+
+  .calc-affix{
+    font-family:'Inter Tight','Inter',sans-serif;
+    font-weight:600;
+    color:var(--muted);
+    font-size:15px;
+  }
+
+  .calc-input-wrap input{
+    appearance:textfield;
+    -moz-appearance:textfield;
+    border:none;
+    background:none;
+    outline:none;
+    width:100%;
+    min-width:0;
+    padding:12px 8px;
+    font-family:'Inter Tight','Inter',sans-serif;
+    font-weight:600;
+    font-size:16px;
+    color:var(--ink);
+    font-variant-numeric:tabular-nums;
+  }
+
+  .calc-input-wrap input::-webkit-outer-spin-button,
+  .calc-input-wrap input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+
+  .calc-result{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+    margin-top:22px;
+    padding-top:22px;
+    border-top:1px solid var(--hairline-soft);
+  }
+
+  @media (max-width:480px){
+    .calc-result{grid-template-columns:1fr;gap:20px;}
+  }
+
+  .calc-result-label{
+    display:block;
+    font-size:11.5px;
+    font-weight:600;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:6px;
+  }
+
+  .calc-result-num{
+    font-family:'Inter Tight','Inter',sans-serif;
+    font-weight:700;
+    font-variant-numeric:tabular-nums;
+    font-size:clamp(27px,6vw,36px);
+    letter-spacing:-.02em;
+    color:var(--ink);
+  }
+
+  .calc-result-num--annual{color:var(--green);}
+
+  .math-disclaimer{
+    margin-top:20px;
+    padding-top:16px;
+    border-top:1px solid var(--hairline-soft);
+    font-size:14px;
+    line-height:1.6;
+    color:var(--muted);
+  }
+
+  /* ---------- findings ---------- */
+
+  .findings-list{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+
+  .finding{
+    background:var(--card);
+    border:1px solid var(--hairline-soft);
+    border-radius:var(--radius);
+    padding:24px 26px;
+  }
+
+  @media (min-width:560px){
+    .finding{padding:26px 32px;}
+  }
+
+  .finding-title{
+    font-size:16.5px;
+    font-weight:700;
+    letter-spacing:-.01em;
+    color:var(--ink);
+    margin-bottom:8px;
+  }
+
+  .finding-detail{
+    font-size:15px;
+    line-height:1.65;
+    color:var(--ink-2);
+  }
+
+  .finding-detail .positive{color:var(--green);font-weight:600;}
+
+  /* ---------- competitive context ---------- */
+
+  .competitor-card{
+    border-left:3px solid var(--amber);
+  }
+
+  .competitor-card .eyebrow{display:block;margin-bottom:12px;}
+
+  .competitor-text{
+    font-size:15.5px;
+    line-height:1.7;
+    color:var(--ink-2);
+  }
+
+  /* ---------- three fixes ---------- */
+
+  .fixes{
+    display:flex;
+    flex-direction:column;
+  }
+
+  .fix{
+    display:flex;
+    gap:20px;
+    padding:22px 0;
+    border-bottom:1px solid var(--hairline-soft);
+  }
+
+  .fix:first-child{padding-top:4px;}
+  .fix:last-child{border-bottom:none;padding-bottom:4px;}
+
+  .fix-num{
+    font-family:'Inter Tight','Inter',sans-serif;
+    font-weight:700;
+    font-size:26px;
+    line-height:1.15;
+    letter-spacing:-.02em;
+    color:var(--amber);
+    font-variant-numeric:tabular-nums;
+    flex:none;
+    width:34px;
+  }
+
+  .fix-body{
+    font-size:15.5px;
+    line-height:1.65;
+    color:var(--ink);
+    padding-top:3px;
+  }
+
+  /* ---------- close / CTA ---------- */
+
+  .close-card .eyebrow{display:block;margin-bottom:14px;}
+
+  .close-callout{
+    font-family:'Fraunces',Georgia,serif;
+    font-weight:500;
+    font-size:19px;
+    line-height:1.5;
+    color:var(--ink);
+    margin-bottom:18px;
+    text-wrap:balance;
+  }
+
+  .close-callout strong{color:#B87F00;}
+
+  .close-text{
+    font-size:16px;
+    line-height:1.7;
+    color:var(--ink-2);
+    max-width:56ch;
+    margin-bottom:28px;
+  }
+
+  .cta-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+
+  .cta-btn{
+    display:block;
+    text-align:center;
+    background:var(--amber);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    font-weight:700;
+    font-size:15.5px;
+    letter-spacing:-.01em;
+    text-decoration:none;
+    padding:15px 28px;
+    border-radius:8px;
+    transition:filter .15s ease,border-color .15s ease;
+  }
+
+  @media (min-width:560px){
+    .cta-btn{display:inline-block;}
+  }
+
+  .cta-btn:hover{filter:brightness(1.05);}
+
+  .cta-btn--ghost{
+    background:none;
+    border:1.5px solid var(--hairline);
+    color:var(--ink);
+  }
+
+  .cta-btn--ghost:hover{filter:none;border-color:var(--ink);}
+
+  .cta-quiet{
+    margin-top:16px;
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.6;
+  }
+
+  /* ---------- footer ---------- */
+
+  footer.foot{
+    margin-top:56px;
+    padding-top:24px;
+    border-top:1px solid var(--hairline);
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:10px 18px;
+    color:var(--muted);
+  }
+
+  footer.foot svg{display:block;flex:none;color:var(--muted);}
+
+  footer.foot .foot-item{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10.5px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+  }
+
+  footer.foot .foot-sep{
+    width:3px;height:3px;border-radius:50%;
+    background:var(--hairline);
+  }
+
+  /* ---------- print ---------- */
+
+  @media print{
+    body{background:#fff;}
+    .page{max-width:100%;padding:0;}
+    .card,.finding{
+      border:1px solid #ddd;
+      box-shadow:none;
+      break-inside:avoid;
+    }
+    .toc{display:none;}
+    .calc-input-wrap{border:1px solid #ccc;background:none;}
+    .cta-btn{
+      display:inline-block;
+      background:none;
+      border:1px solid var(--ink);
+      color:var(--ink);
+      padding:10px 18px;
+    }
+    .cta-btn--primary::after{
+      content:" — station.solutions/call";
+      font-weight:400;
+    }
+    .cta-btn--ghost{display:none;}
+    header.topbar,footer.foot{border-color:#ddd;}
+    section{break-inside:avoid;}
+  }
+
+  @media (max-width:420px){
+    header.topbar{flex-direction:column;align-items:flex-start;gap:12px;}
+    .topbar-meta{text-align:left;}
+    .fix{gap:14px;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ============ 1 · HEADER BAR ============ -->
+  <header class="topbar">
+    <div class="brand">
+      <svg viewBox="0 0 100 100" width="26" height="26" aria-hidden="true"><defs><g id="stArm"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/></g><mask id="stCore"><rect width="100" height="100" fill="#fff"/><circle cx="50" cy="50" r="16.5" fill="#000"/></mask></defs><g mask="url(#stCore)" fill="currentColor" transform="rotate(45 50 50)"><use href="#stArm"/><use href="#stArm" transform="rotate(90 50 50)"/><use href="#stArm" transform="rotate(180 50 50)"/><use href="#stArm" transform="rotate(270 50 50)"/></g></svg>
+      <span class="wordmark">STATION</span>
+    </div>
+    <div class="topbar-meta">
+      <span class="eyebrow">Free Audit · Confidential</span>
+      <span class="date">July 22, 2026</span>
+    </div>
+  </header>
+
+  <!-- ============ 2 · TITLE BLOCK ============ -->
+  <div class="title-block">
+    <span class="eyebrow">Prepared For</span>
+    <h1 class="biz-name">Ace Plumbing &amp; Drain</h1>
+    <p class="title-sub">What we found, what it&rsquo;s costing you, and the three fastest fixes.</p>
+  </div>
+
+  <!-- ============ jump nav — six sections, one scroll ============ -->
+  <nav class="toc" aria-label="Jump to a section">
+    <a href="#sec-number">01 &middot; The number</a>
+    <a href="#sec-math">02 &middot; Your math</a>
+    <a href="#sec-findings">03 &middot; What we found</a>
+    <a href="#sec-competitor">04 &middot; Around you</a>
+    <a href="#sec-fixes">05 &middot; Three fixes</a>
+    <a href="#sec-close">06 &middot; Next step</a>
+  </nav>
+
+  <!-- ============ 3 · HEADLINE FINDING ============ -->
+  <section>
+    <div class="card headline-card">
+      <span class="eyebrow eyebrow--amber">The Headline</span>
+      <p class="headline-text">Ace Plumbing &amp; Drain has no online booking and a 6-hour average reply time on web leads — competitors nearby answer in under 20 minutes.</p>
+    </div>
+  </section>
+
+  <!-- ============ 4 · THE NUMBER THAT MATTERS ============ -->
+  <section id="sec-number">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <span class="sec-title">The number that matters</span>
+      <span class="rule"></span>
+    </div>
+    <div class="card number-card">
+      <div class="big-num">23</div>
+      <p class="big-num-label">estimated inquiries going unanswered every month</p>
+      <div class="num-divider"></div>
+      <p class="num-reasoning">Based on typical call volume for a single-van plumbing outfit and no after-hours coverage, roughly a quarter of inbound calls go unanswered.</p>
+      <p class="recovery-note">The good news: these are people already trying to reach you &mdash; the most recoverable kind of lost business.</p>
+    </div>
+  </section>
+
+  <!-- ============ 5 · WHAT THAT'S WORTH — LIVE CALCULATOR ============ -->
+  <section id="sec-math">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <span class="sec-title">What that&rsquo;s worth &mdash; your math</span>
+      <span class="rule"></span>
+    </div>
+    <div class="card math-card">
+      <span class="eyebrow">Run Your Own Numbers</span>
+      <p class="math-lede">We estimated your average sale at <strong>$275</strong>, based on plumbing businesses like yours. Know your real numbers? Type them in below &mdash; the totals update as you go.</p>
+
+      <div class="calc-grid">
+        <div class="calc-field">
+          <label class="calc-field-label" for="calc-ticket">Average sale / job value</label>
+          <div class="calc-input-wrap">
+            <span class="calc-affix">$</span>
+            <input type="number" id="calc-ticket" inputmode="decimal" min="0" step="1" value="275" aria-describedby="calc-monthly calc-annual">
+          </div>
+        </div>
+        <div class="calc-field">
+          <label class="calc-field-label" for="calc-close">Realistic close rate on those calls</label>
+          <div class="calc-input-wrap">
+            <input type="number" id="calc-close" inputmode="decimal" min="0" max="100" step="1" value="30" aria-describedby="calc-monthly calc-annual">
+            <span class="calc-affix">%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="calc-result">
+        <div>
+          <span class="calc-result-label">You could be missing / month</span>
+          <div class="calc-result-num" id="calc-monthly">$0</div>
+        </div>
+        <div>
+          <span class="calc-result-label">Over a year</span>
+          <div class="calc-result-num calc-result-num--annual" id="calc-annual">$0</div>
+        </div>
+      </div>
+
+      <p class="math-disclaimer">Based on 23 estimated missed inquiries/mo (section 01). We don't know your real margins or close rate &mdash; these are your numbers, not ours.</p>
+    </div>
+  </section>
+
+  <!-- ============ 6 · FINDINGS ============ -->
+  <section id="sec-findings">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <span class="sec-title">What we found</span>
+      <span class="rule"></span>
+    </div>
+    <div class="findings-list">
+      <!--
+        The FINDINGS_HTML token below is replaced with the inner finding cards.
+        Expected shape per item (2 to 4 items):
+        <div class="finding">
+          <p class="finding-title">Issue title goes here</p>
+          <p class="finding-detail">One or two sentences of specific detail about the issue.
+          Optionally wrap a positive/recovery note in <span class="positive">…</span>.</p>
+        </div>
+      -->
+      <div class="finding"><p class="finding-title">No online booking</p><p class="finding-detail">Customers can only reach you by phone during business hours — nights and weekends go straight to voicemail.</p></div><div class="finding"><p class="finding-title">Slow web-lead reply</p><p class="finding-detail">Contact-form submissions on your site average a 6+ hour reply. Most buyers have already called a competitor by then.</p></div><div class="finding"><p class="finding-title">Thin review presence</p><p class="finding-detail">Only a handful of confirmable reviews on Google — recent jobs aren't being turned into social proof.</p></div>
+    </div>
+  </section>
+
+  <!-- ============ 7 · COMPETITIVE CONTEXT ============ -->
+  <section id="sec-competitor">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <span class="sec-title">Around you</span>
+      <span class="rule"></span>
+    </div>
+    <div class="card competitor-card">
+      <span class="eyebrow">Competitive Context</span>
+      <p class="competitor-text">Two nearby plumbers advertise 24/7 booking and text-back-in-5-minutes guarantees; neither of those is table stakes yet in this market, which is exactly why it stands out when someone offers it.</p>
+    </div>
+  </section>
+
+  <!-- ============ 8 · THREE FIXES ============ -->
+  <section id="sec-fixes">
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <span class="sec-title">Three fixes for this week</span>
+      <span class="rule"></span>
+    </div>
+    <div class="card">
+      <div class="fixes">
+        <div class="fix">
+          <span class="fix-num">1</span>
+          <p class="fix-body">Turn on Google Business Profile messaging so missed calls become a text thread.</p>
+        </div>
+        <div class="fix">
+          <span class="fix-num">2</span>
+          <p class="fix-body">Add a callback-request button above the fold on your homepage.</p>
+        </div>
+        <div class="fix">
+          <span class="fix-num">3</span>
+          <p class="fix-body">Text your last 15 customers a review link — even 5 fresh reviews changes the page.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 9 · CLOSE + CTA ============ -->
+  <section id="sec-close">
+    <div class="sec-head">
+      <span class="sec-num">06</span>
+      <span class="sec-title">Where Station comes in</span>
+      <span class="rule"></span>
+    </div>
+    <div class="card close-card">
+      <span class="eyebrow eyebrow--amber">Next Step</span>
+      <p class="close-callout">Even on a conservative read, that&rsquo;s <strong><span id="cta-monthly">$0</span>/mo</strong> &mdash; <strong><span id="cta-annual">$0</span>/yr</strong> &mdash; sitting on the table right now.</p>
+      <p class="close-text">Station wires in call answering, instant text-back, and follow-up so nothing above falls through again — most of this is live within a week.</p>
+      <div class="cta-row">
+        <a class="cta-btn cta-btn--primary" href="https://station.solutions/call">Book a 15-minute intro call</a>
+        <a class="cta-btn cta-btn--ghost" href="https://station.solutions/#pricing">See packages &amp; pricing</a>
+      </div>
+      <p class="cta-quiet">or just reply to the email this came in &mdash; a human reads every reply.</p>
+    </div>
+  </section>
+
+  <!-- ============ 10 · FOOTER ============ -->
+  <footer class="foot">
+    <svg viewBox="0 0 100 100" width="16" height="16" aria-hidden="true"><defs><g id="stArmF"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/></g><mask id="stCoreF"><rect width="100" height="100" fill="#fff"/><circle cx="50" cy="50" r="16.5" fill="#000"/></mask></defs><g mask="url(#stCoreF)" fill="currentColor" transform="rotate(45 50 50)"><use href="#stArmF"/><use href="#stArmF" transform="rotate(90 50 50)"/><use href="#stArmF" transform="rotate(180 50 50)"/><use href="#stArmF" transform="rotate(270 50 50)"/></g></svg>
+    <span class="foot-item">station.solutions</span>
+    <span class="foot-sep"></span>
+    <span class="foot-item">Prepared by Station · Mission control for business</span>
+    <span class="foot-sep"></span>
+    <span class="foot-item">July 22, 2026</span>
+  </footer>
+
+</div>
+<script>
+(function(){
+  var calls = 23;
+  var ticketEl = document.getElementById('calc-ticket');
+  var closeEl = document.getElementById('calc-close');
+  var monthlyEl = document.getElementById('calc-monthly');
+  var annualEl = document.getElementById('calc-annual');
+  var ctaMonthlyEl = document.getElementById('cta-monthly');
+  var ctaAnnualEl = document.getElementById('cta-annual');
+  function fmt(n){ return '$' + Math.max(0, Math.round(n)).toLocaleString('en-US'); }
+  function recalc(){
+    var ticket = parseFloat(ticketEl.value); if (!isFinite(ticket) || ticket < 0) ticket = 0;
+    var rate = parseFloat(closeEl.value); if (!isFinite(rate)) rate = 0;
+    rate = Math.min(100, Math.max(0, rate)) / 100;
+    var monthly = calls * ticket * rate;
+    var annual = monthly * 12;
+    monthlyEl.textContent = fmt(monthly);
+    annualEl.textContent = fmt(annual);
+    if (ctaMonthlyEl) ctaMonthlyEl.textContent = fmt(monthly);
+    if (ctaAnnualEl) ctaAnnualEl.textContent = fmt(annual);
+  }
+  if (ticketEl && closeEl) {
+    ticketEl.addEventListener('input', recalc);
+    closeEl.addEventListener('input', recalc);
+    recalc();
+  }
+})();
+</script>
+</body>
+</html>
